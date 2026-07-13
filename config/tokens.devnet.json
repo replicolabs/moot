@@ -1,0 +1,7 @@
+{
+  "USDC": {
+    "mint": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+    "decimals": 6,
+    "note": "Circle official devnet USDC mint, verify at https://developers.circle.com/stablecoins/usdc-on-test-networks before use"
+  }
+}

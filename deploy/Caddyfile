@@ -1,0 +1,14 @@
+app.heymoot.xyz {
+	# Slack's OAuth install/redirect routes -- served by Bolt's own internal
+	# HTTP server (SLACK_OAUTH_PORT in slack-app/.env).
+	handle /slack/* {
+		reverse_proxy localhost:3000
+	}
+
+	# Everything else -- the wallet-link/approval webview, its /api/*, the
+	# GitHub App setup callback, and /health -- served by mcp-server's public
+	# listener (MCP_SERVER_PORT in mcp-server/.env).
+	handle {
+		reverse_proxy localhost:8787
+	}
+}

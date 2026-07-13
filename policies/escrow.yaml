@@ -1,0 +1,29 @@
+name: escrow
+schema:
+  recipient: { type: address, required: true }   # payee
+  amount:    { type: number, required: true, min: 0 }
+  token:     { type: string, required: true }
+  memo:      { type: string, required: false }    # milestone description
+
+# The escrow multisig's own threshold (payer, payee, arbiter) is the floor.
+# Normal release needs the payer's approval; a stuck/disputed release needs
+# the arbiter's vote. Both paths still only ever move funds to payer or payee,
+# because those are the only transactions ever proposed for this escrow.
+approvals:
+  base: from_multisig_threshold
+  escalations: []
+
+recipient_controls:
+  # The payee is fixed at escrow creation time, not a free-form new recipient,
+  # so there is no allowlist to flag against.
+  flag_unknown: false
+
+hold:
+  enabled: true
+  emoji: moot-hold
+  eligibility: members       # payer, payee, or arbiter can raise a dispute
+  quorum_to_hold: 1
+  quorum_to_release: 0.51    # arbiter's approval alone clears a 3-member escrow
+
+expiry:
+  window: 720h               # 30 days: milestones take longer than ops payments

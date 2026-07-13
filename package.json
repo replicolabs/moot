@@ -1,0 +1,10 @@
+{
+  "name": "moot",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "mcp-server",
+    "slack-app"
+  ]
+}

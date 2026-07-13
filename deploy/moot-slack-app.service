@@ -1,0 +1,16 @@
+[Unit]
+Description=Moot Slack app
+After=network.target moot-mcp-server.service
+Requires=moot-mcp-server.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/moot/slack-app
+ExecStart=/usr/bin/npx tsx src/index.ts
+Restart=always
+RestartSec=3
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

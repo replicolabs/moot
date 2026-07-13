@@ -1,0 +1,19 @@
+name: merge_pr
+schema:
+  recipient: { type: string, required: false }   # unused, no recipient in a merge action
+  amount:    { type: number, required: false }    # unused, no funds move
+  token:     { type: string, required: false }    # unused
+  memo:      { type: string, required: false }    # the PR reference, e.g. owner/repo#123
+
+# No money moves here. The floor is still the on-chain multisig threshold
+# among reviewers -- this exists to show the same quorum-and-approval engine
+# generalizes to a non-financial action, not as a real CI merge gate.
+approvals:
+  base: from_multisig_threshold
+  escalations: []
+
+recipient_controls:
+  flag_unknown: false
+
+expiry:
+  window: 168h   # 7 days: a stale unreviewed PR proposal should expire

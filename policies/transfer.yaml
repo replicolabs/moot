@@ -1,0 +1,33 @@
+name: transfer
+schema:
+  recipient: { type: address, required: true }
+  amount:    { type: number, required: true, min: 0 }
+  token:     { type: string, required: true }
+  memo:      { type: string, required: false }
+
+# Additive requirements above the on-chain floor. Cannot lower the floor.
+approvals:
+  base: from_multisig_threshold
+  escalations:
+    - when: "amount > 5000"
+      require_extra: 1
+    - when: "recipient not in allowlist"
+      require_role: ["treasury-admins"]
+
+recipient_controls:
+  allowlist_ref: ops_known_payees
+  flag_unknown: true
+
+velocity:
+  window: 24h
+  max_total_amount: 20000
+
+hold:
+  enabled: true
+  emoji: moot-hold
+  eligibility: members
+  quorum_to_hold: 1
+  quorum_to_release: 0.51
+
+expiry:
+  window: 48h
