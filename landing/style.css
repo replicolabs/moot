@@ -349,7 +349,7 @@ footer {
   .shot-frame { transform: scale(0.82); transform-origin: center; }
 }
 
-@media (max-width: 880px) and (max-height: 780px) {
+@media (max-width: 880px) and (max-height: 480px) {
   .visual { display: none; }
   main { grid-template-rows: 1fr; display: flex; align-items: center; }
 }
